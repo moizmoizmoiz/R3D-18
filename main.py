@@ -12,8 +12,8 @@ import torch.nn as nn
 from args import argument_parser, dataset_kwargs, optimizer_kwargs, lr_scheduler_kwargs
 # from src import models # our folder with models
 
-from utils.loggers import Logger
-from utils.set_seed import set_random_seed
+from src.loggers import Logger
+from src.set_seed import set_random_seed
 # global variables
 parser = argument_parser()
 args = parser.parse_args()
