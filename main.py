@@ -22,7 +22,7 @@ args = parser.parse_args()
 def main():
     global args
 
-    set_random_seed(args.seed)
+    set_random_seed(args.seed) #we set the default as 2222
     if not args.use_avai_gpus:
         os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_devices
     use_gpu = torch.cuda.is_available()
