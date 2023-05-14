@@ -2,6 +2,8 @@ from tools import mkdir_if_missing
 import sys
 import os.path as osp
 import os
+
+
 class Logger:
     """
     Write console output to external text file.
@@ -39,4 +41,3 @@ class Logger:
         self.console.close()
         if self.file is not None:
             self.file.close()
-
