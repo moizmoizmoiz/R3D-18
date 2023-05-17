@@ -1,6 +1,6 @@
 from tqdm.notebook import tqdm
 import torch.nn.functional as F
-from avgmeter import AverageMeter
+from src.avgmeter import AverageMeter
 import torch
 
 
