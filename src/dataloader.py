@@ -18,7 +18,7 @@ class VideoDataset(torch.utils.data.Dataset):
         #For each frame in the clip, it loads the image from file using the Image class from the Python Imaging Library (PIL),
         #applies the optional transform, and adds it to the clip. If the clip has at least frames_per_clip frames,
         #it is added to a list called clips along with the class name
-
+        print('Transforming Data...')
         self.clips = []
         for class_name in self.classes:
             class_dir = os.path.join(root_dir, class_name)
@@ -33,6 +33,7 @@ class VideoDataset(torch.utils.data.Dataset):
                     clip.append(frame)
                 if len(clip) >= frames_per_clip:
                     self.clips.append((clip[:frames_per_clip], class_name))
+        print('Done Transformation.')
 
     def __len__(self):
         return len(self.clips) #returns the number of clips in the dataset

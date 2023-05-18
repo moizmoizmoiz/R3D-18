@@ -31,4 +31,4 @@ def train(model, dataloader, optimizer, device):
         # update the loss meter
         loss_meter.update(loss_this.item(), label.shape[0])
         tk.set_postfix({"loss": loss_meter.avg})
-    print('Train: Average loss: {:.4f}\n'.format(loss_meter.avg))  # variable
+    print('Train: Average loss: {:.4f}\n'.format(loss_meter.avg))

@@ -5,13 +5,11 @@ import sys
 import time
 import src
 from torch import optim
-import warnings
 from src.tools import count_num_param
 from sklearn.model_selection import train_test_split
-import numpy as np
 from src import train, test
 import torch
-import torch.backends.cudnn as cudnn
+from torch.utils.tensorboard import SummaryWriter
 import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
@@ -28,6 +26,7 @@ args = parser.parse_args()
 
 
 def main():
+
     global args
 
     set_random_seed(args.seed)  # we set the default as 2222
@@ -36,7 +35,7 @@ def main():
     # use_gpu = torch.cuda.is_available()
     # if args.use_cpu:
     #     use_gpu = False
-
+    writer = SummaryWriter()
     log_name = "logs.txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print(f"==========\nArgs:{args}\n==========")
@@ -92,9 +91,12 @@ def main():
               train_loader,
               optimizer,
               device)
+        writer.add_scalar('Loss/train', np.random.random(), n_iter)
     test(model,
          test_loader,
          device)
+
+    writer.close()
 
 
 if __name__ == "__main__":
