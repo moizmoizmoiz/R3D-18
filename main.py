@@ -54,10 +54,10 @@ def main():
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Add normalization here
     ])
 
-    dataset = VideoDataset(root_dir='/content/HMDB_simp', frames_per_clip=3,  # TODO: root_dir as variable
+    dataset = VideoDataset(root_dir=args.root, frames_per_clip=3,
                            transform=data_transforms)  # frames=3 because r3d takes only 3 frames
 
-    train_indexes, test_indexes = train_test_split(range(len(dataset)), test_size=0.2, shuffle=True)  # TODO variable
+    train_indexes, test_indexes = train_test_split(range(len(dataset)), test_size=args.split, shuffle=True)
 
     train_set = torch.utils.data.Subset(dataset, train_indexes)
     test_set = torch.utils.data.Subset(dataset, test_indexes)
@@ -67,10 +67,10 @@ def main():
     nn.init.normal_(model.fc.weight, mean=0.0, std=0.002)
     print("Model size: {:.3f} M".format(count_num_param(model)))
 
-    batch_size = 64  # variable
-    num_workers = 4  # variable
+    # batch_size = 64  # variable
+    # num_workers = 4  # variable
 
-    loader_args = dict(batch_size=batch_size, num_workers=num_workers, pin_memory=True)
+    loader_args = dict(batch_size=args.batch, num_workers=args.workers, pin_memory=True)
     train_loader = torch.utils.data.DataLoader(train_set, shuffle=True, **loader_args)
     test_loader = torch.utils.data.DataLoader(test_set, shuffle=False, drop_last=True, **loader_args)
 
@@ -79,10 +79,10 @@ def main():
     print("Device: ", device)
     model = model.to(device)
 
-    learning_rate = 0.001
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-8)
+    learning_rate = args.lr
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.weight_decay)
 
-    num_epoch = 20  # variable
+    num_epoch = args.epochs  # variable
 
     for epoch in range(num_epoch):
         train(model,
