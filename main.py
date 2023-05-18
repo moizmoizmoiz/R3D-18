@@ -84,7 +84,7 @@ def main():
     print("==========")
     print("Optimizer Defined...")
     learning_rate = args.lr
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-08)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
     print("==========")
     num_epoch = args.epochs
 

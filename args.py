@@ -73,9 +73,9 @@ def argument_parser():
         "--lr", default=0.0003, type=float, help="initial learning rate"
     )
 
-    # parser.add_argument(
-    #     "--weight-decay", default=1e-08, type=float, help="weight decay"
-    # )
+    parser.add_argument(
+        "--decay", default=1e-08, type=float, help="weight decay"
+    )
 
     # # sgd
     # parser.add_argument(
