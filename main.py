@@ -80,9 +80,10 @@ def main():
     model = model.to(device)
 
     learning_rate = args.lr
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.weight_decay)
+    weight_decay = args.weight_decay
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
-    num_epoch = args.epochs  # variable
+    num_epoch = args.epochs
 
     for epoch in range(num_epoch):
         train(model,

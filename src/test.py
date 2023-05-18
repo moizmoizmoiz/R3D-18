@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import numpy as np
 from sklearn.metrics import confusion_matrix
 
-def test(Rmodel, dataloader, device):
+def test(model, dataloader, device):
     # meters
     loss_meter = AverageMeter()
     top1_acc_meter = AverageMeter()
@@ -18,7 +18,7 @@ def test(Rmodel, dataloader, device):
     correct_top5 = 0
     y_true = []
     y_pred = []
-    Rmodel.eval()
+    model.eval()
     tk = tqdm(dataloader, total=int(len(dataloader)), desc='Test', unit='frames', leave=False)
     for batch_idx, data in enumerate(tk):
         # fetch the data
@@ -31,7 +31,7 @@ def test(Rmodel, dataloader, device):
         # since we dont need to backpropagate loss in testing,
         # we dont keep the gradient
         with torch.no_grad():
-            output = Rmodel(frame)
+            output = model(frame)
         # compute the loss function just for checking
         loss_this = F.cross_entropy(output, label)
         # get the index of the max log-probability
