@@ -23,7 +23,7 @@ class VideoDataset(torch.utils.data.Dataset):
         print(f"Total Classes = {len(self.classes)}" )
         self.clips = []
         for class_name in tqdm(self.classes, leave=False):
-            print(f"working on: {class_name}")
+            print(f"\nFinished Transforming: {class_name}")
             class_dir = os.path.join(root_dir, class_name)
             for video_file in os.listdir(class_dir):
                 video_path = os.path.join(class_dir, video_file)
