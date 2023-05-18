@@ -44,6 +44,12 @@ def argument_parser():
         type=float,
         help="train/test split ratio",
     )
+    parser.add_argument(
+        "--print",
+        action="store_true",
+        default= False,
+        help="Print Model Summary",
+    )
 
     parser.add_argument(
         "-btch",
