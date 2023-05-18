@@ -16,7 +16,7 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 import torch.nn as nn
-from args import argument_parser, dataset_kwargs, optimizer_kwargs
+from args import argument_parser
 
 from src.dataloader import VideoDataset
 from src.loggers import Logger
