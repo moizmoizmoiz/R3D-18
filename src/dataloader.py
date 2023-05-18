@@ -3,6 +3,7 @@ import torchvision.transforms as transforms
 import torch
 from PIL import Image
 import os
+from tqdm import tqdm
 
 
 class VideoDataset(torch.utils.data.Dataset):
@@ -20,9 +21,11 @@ class VideoDataset(torch.utils.data.Dataset):
         #it is added to a list called clips along with the class name
         print('Transforming Data...')
         print(f"Total Classes = {len(self.classes)}" )
+        count = 0
         self.clips = []
-        for class_name in self.classes:
-            print('working on: '+class_name)
+        for class_name in tqdm(self.classes):
+            count +=1
+            print(f"working on: {class_name}  {count}/{len(self.classes)}")
             class_dir = os.path.join(root_dir, class_name)
             for video_file in os.listdir(class_dir):
                 video_path = os.path.join(class_dir, video_file)
