@@ -10,7 +10,7 @@ def train(model, dataloader, optimizer, device):
     loss_meter = AverageMeter()
     # switch to train mode
     model.train()
-    tk = tqdm(dataloader, total=int(len(dataloader)), desc='Training', unit='frames', leave=False)
+    tk = tqdm(dataloader, total=int(len(dataloader)), desc='Training', unit='frames')
     for batch_idx, data in enumerate(tk):
         # fetch the data
         frame, label = data[0], data[1]
@@ -32,5 +32,4 @@ def train(model, dataloader, optimizer, device):
         loss_meter.update(loss_this.item(), label.shape[0])
         tk.set_postfix({"loss": loss_meter.avg})
         avg_loss = loss_meter.avg
-    print('loss: {:.4f}\n'.format(avg_loss))
     return avg_loss
