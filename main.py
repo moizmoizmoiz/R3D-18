@@ -89,11 +89,10 @@ def main():
     print("==========")
 
     for epoch in range(args.epochs):
-        acc_avg, loss_avg = train(model,
+        loss_avg = train(model,
               train_loader,
               optimizer,
               device)
-        writer.add_scalar('Accuracy/Train', acc_avg, epoch)
         writer.add_scalar('Loss/Train', loss_avg, epoch)
 
 

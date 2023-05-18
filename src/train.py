@@ -32,7 +32,5 @@ def train(model, dataloader, optimizer, device):
         loss_meter.update(loss_this.item(), label.shape[0])
         tk.set_postfix({"loss": loss_meter.avg})
         avg_loss = loss_meter.avg
-        acc_loss = acc_loss.avg
     print('loss: {:.4f}\n'.format(avg_loss))
-    print('accuracy: {:.4f}\n'.format(acc_loss))
-    return avg_loss, acc_loss
+    return avg_loss
