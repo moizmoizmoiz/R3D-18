@@ -31,7 +31,6 @@ class VideoDataset(torch.utils.data.Dataset):
                     frame_path = os.path.join(video_path, frame_file)
                     frame = Image.open(frame_path)
                     if self.transform:
-                        print('Transforming video: '+frame_file)
                         frame = self.transform(frame)
                     clip.append(frame)
                 if len(clip) >= frames_per_clip:
