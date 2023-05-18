@@ -14,6 +14,10 @@ def argument_parser():
     parser.add_argument(
         "--root", type=str, default="/content/drive/MyDrive/HMDB_simp", help="root path to data directory"
     )
+
+    parser.add_argument(
+        "--name", type=str, default="runs", help="Name for the summary on tesorboard"
+    )
     # parser.add_argument(
     #     "-s",
     #     "--source-names",
