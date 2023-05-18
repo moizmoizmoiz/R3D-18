@@ -19,8 +19,10 @@ class VideoDataset(torch.utils.data.Dataset):
         #applies the optional transform, and adds it to the clip. If the clip has at least frames_per_clip frames,
         #it is added to a list called clips along with the class name
         print('Transforming Data...')
+        print('Total Classes = ' + len(self.classes))
         self.clips = []
         for class_name in self.classes:
+            print('working on: '+class_name)
             class_dir = os.path.join(root_dir, class_name)
             for video_file in os.listdir(class_dir):
                 video_path = os.path.join(class_dir, video_file)
@@ -29,6 +31,7 @@ class VideoDataset(torch.utils.data.Dataset):
                     frame_path = os.path.join(video_path, frame_file)
                     frame = Image.open(frame_path)
                     if self.transform:
+                        print('Transforming video: '+frame_file)
                         frame = self.transform(frame)
                     clip.append(frame)
                 if len(clip) >= frames_per_clip:

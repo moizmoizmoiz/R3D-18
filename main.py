@@ -53,7 +53,6 @@ def main():
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Add normalization here
     ])
     print("==========")
-    print("Transforming Data...")
     dataset = VideoDataset(root_dir=args.root, frames_per_clip=3,
                            transform=data_transforms)  # frames=3 because r3d takes only 3 frames
     print("==========")
