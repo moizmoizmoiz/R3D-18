@@ -68,7 +68,7 @@ def argument_parser():
     )
 
     parser.add_argument(
-        "--weight-decay", default=1e-8, type=float, help="weight decay"
+        "--weight-decay", default=1e-08, type=float, help="weight decay"
     )
 
     # # sgd
@@ -167,7 +167,7 @@ def argument_parser():
     # ************************************************************
     # Miscs
     # ************************************************************
-    parser.add_argument("--print-freq", type=int, default=10, help="print frequency")
+    # parser.add_argument("--print-freq", type=int, default=10, help="print frequency")
     parser.add_argument("--seed", type=int, default=42, help="manual seed")
     parser.add_argument(
         "--save-dir", type=str, default="log", help="path to save log and model weights"

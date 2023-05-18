@@ -31,11 +31,11 @@ def main():
     global args
 
     set_random_seed(args.seed)  # we set the default as 2222
-    if not args.use_avai_gpus:
-        os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_devices
-    use_gpu = torch.cuda.is_available()
-    if args.use_cpu:
-        use_gpu = False
+    # if not args.use_avai_gpus:
+    #     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_devices
+    # use_gpu = torch.cuda.is_available()
+    # if args.use_cpu:
+    #     use_gpu = False
 
     log_name = "log_test.txt" if args.evaluate else "log_train.txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
