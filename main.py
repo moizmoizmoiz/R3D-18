@@ -3,11 +3,13 @@ import os
 import os.path as osp
 import sys
 import time
+
+from torchvision.models.video import R3D_18_Weights
+
 import src
 from torch import optim
 from src.tools import count_num_param
 from sklearn.model_selection import train_test_split
-from src import train, test
 import torch
 from torch.utils.tensorboard import SummaryWriter
 import torchvision
@@ -19,6 +21,8 @@ from args import argument_parser
 from src.dataloader import VideoDataset
 from src.loggers import Logger
 from src.set_seed import set_random_seed
+from src.train import train
+from src.test import test
 
 # global variables
 parser = argument_parser()
@@ -26,7 +30,6 @@ args = parser.parse_args()
 
 
 def main():
-
     global args
 
     set_random_seed(args.seed)  # we set the default as 2222
@@ -61,7 +64,7 @@ def main():
     train_set = torch.utils.data.Subset(dataset, train_indexes)
     test_set = torch.utils.data.Subset(dataset, test_indexes)
     print("Defining Model")
-    model = torchvision.models.video.r3d_18(pretrained=True)
+    model = torchvision.models.video.r3d_18(weights=R3D_18_Weights.DEFAULT)
     model.fc = torch.nn.Linear(512, 25)
     nn.init.normal_(model.fc.weight, mean=0.0, std=0.002)
     print("Model size: {:.3f} M".format(count_num_param(model)))
@@ -90,7 +93,7 @@ def main():
               train_loader,
               optimizer,
               device)
-        #
+
     test(model,
          test_loader,
          device)
