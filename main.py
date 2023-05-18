@@ -26,12 +26,12 @@ from src.test import test
 
 # global variables
 parser = argument_parser()
-writer = SummaryWriter(args.name)
 args = parser.parse_args()
 
 
 def main():
     global args
+    writer = SummaryWriter(args.name)
 
     set_random_seed(args.seed)  # we set the default as 2222
     # if not args.use_avai_gpus:
