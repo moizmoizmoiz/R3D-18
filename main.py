@@ -87,9 +87,8 @@ def main():
     learning_rate = args.lr
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
     print("==========")
-    num_epoch = args.epochs
 
-    for epoch in range(num_epoch):
+    for epoch in range(args.epochs):
         acc_avg, loss_avg = train(model,
               train_loader,
               optimizer,
