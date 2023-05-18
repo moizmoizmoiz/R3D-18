@@ -26,6 +26,7 @@ from src.test import test
 
 # global variables
 parser = argument_parser()
+writer = SummaryWriter(args.name)
 args = parser.parse_args()
 
 
@@ -38,7 +39,6 @@ def main():
     # use_gpu = torch.cuda.is_available()
     # if args.use_cpu:
     #     use_gpu = False
-    writer = SummaryWriter(args.name)
     log_name = "logs.txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print(f"==========\nArgs:{args}\n==========")

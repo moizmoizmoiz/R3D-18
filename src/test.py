@@ -6,6 +6,7 @@ import torch.nn.functional as F
 
 ##define test function
 import numpy as np
+from tqdm import tqdm
 from sklearn.metrics import confusion_matrix
 
 def test(model, dataloader, device):
