@@ -45,7 +45,7 @@ def argument_parser():
         help="train/test split ratio",
     )
     parser.add_argument(
-        "--model-print",
+        "--mprint",
         action="store_true",
         default= False,
         help="Print Model Summary",

@@ -66,7 +66,7 @@ def main():
     model.fc = torch.nn.Linear(512, 25)
     nn.init.normal_(model.fc.weight, mean=0.0, std=0.002)
     print("Model size: {:.3f} M".format(count_num_param(model)))
-    if args.model_print: print(model)
+    if args.mprint: print(model)
     print("==========")
     # batch_size = 64  # variable
     # num_workers = 4  # variable
@@ -91,7 +91,7 @@ def main():
               train_loader,
               optimizer,
               device)
-        writer.add_scalar('Loss/train', np.random.random(), n_iter)
+        #
     test(model,
          test_loader,
          device)
