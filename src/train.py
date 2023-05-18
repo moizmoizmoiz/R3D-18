@@ -1,4 +1,4 @@
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import torch.nn.functional as F
 from src.avgmeter import AverageMeter
 import torch
@@ -31,4 +31,7 @@ def train(model, dataloader, optimizer, device):
         # update the loss meter
         loss_meter.update(loss_this.item(), label.shape[0])
         tk.set_postfix({"loss": loss_meter.avg})
-    print('Train: Average loss: {:.4f}\n'.format(loss_meter.avg))
+        avg_loss = loss_meter.avg
+        acc_loss = acc_loss.avg
+    print('Train: Average loss: {:.4f}\n'.format(avg_loss))
+    return avg_loss, acc_loss

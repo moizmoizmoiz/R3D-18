@@ -90,10 +90,13 @@ def main():
     num_epoch = args.epochs
 
     for epoch in range(num_epoch):
-        train(model,
+        acc_avg, loss_avg = train(model,
               train_loader,
               optimizer,
               device)
+        writer.add_scalar('Accuracy/Train', acc_avg, epoch)
+        writer.add_scalar('Accuracy/Train', loss_avg, epoch)
+
 
     test(model,
          test_loader,
