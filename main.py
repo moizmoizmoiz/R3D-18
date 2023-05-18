@@ -37,15 +37,15 @@ def main():
     # if args.use_cpu:
     #     use_gpu = False
 
-    log_name = "log_test.txt" if args.evaluate else "log_train.txt"
+    log_name = "logs.txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print(f"==========\nArgs:{args}\n==========")
 
-    if use_gpu:
-        print(f"Currently using GPU {args.gpu_devices}")
-        cudnn.benchmark = True
-    else:
-        warnings.warn("Currently using CPU, however, GPU is highly recommended")
+    # if use_gpu:
+    #     print(f"Currently using GPU {args.gpu_devices}")
+    #     cudnn.benchmark = True
+    # else:
+    #     warnings.warn("Currently using CPU, however, GPU is highly recommended")
 
     print("Transforming Data")
     data_transforms = transforms.Compose([
@@ -80,8 +80,7 @@ def main():
     model = model.to(device)
 
     learning_rate = args.lr
-    weight_decay = args.weight_decay
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=1e-08)
 
     num_epoch = args.epochs
 
