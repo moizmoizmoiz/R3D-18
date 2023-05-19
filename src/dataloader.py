@@ -27,7 +27,7 @@ class VideoDataset(torch.utils.data.Dataset):
             for video_file in os.listdir(class_dir):
                 video_path = os.path.join(class_dir, video_file)
                 clip = []
-                for frame_file in os.listdir(video_path):
+                for frame_file in tqdm(os.listdir(video_path)):
                     frame_path = os.path.join(video_path, frame_file)
                     frame = Image.open(frame_path)
                     if self.transform:
