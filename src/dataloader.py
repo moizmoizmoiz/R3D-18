@@ -24,10 +24,10 @@ class VideoDataset(torch.utils.data.Dataset):
         for class_name in tqdm(self.classes):
             print('working on: '+class_name)
             class_dir = os.path.join(root_dir, class_name)
-            for video_file in os.listdir(class_dir):
+            for video_file in tqdm(os.listdir(class_dir)):
                 video_path = os.path.join(class_dir, video_file)
                 clip = []
-                for frame_file in tqdm(os.listdir(video_path)):
+                for frame_file in os.listdir(video_path):
                     frame_path = os.path.join(video_path, frame_file)
                     frame = Image.open(frame_path)
                     if self.transform:
