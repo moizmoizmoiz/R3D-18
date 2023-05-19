@@ -105,6 +105,7 @@ def main():
     elapsed = round(time.time() - time_start)
     elapsed = str(datetime.timedelta(seconds=elapsed))
     print(f"Elapsed {elapsed}")
+    writer.add_text(f"Elapsed {elapsed}")
 
     writer.close()
 
