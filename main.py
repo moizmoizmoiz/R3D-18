@@ -31,7 +31,7 @@ args = parser.parse_args()
 
 def main():
     global args
-    writer = SummaryWriter(args.name)
+    writer = SummaryWriter(args.name, log_dir='/content/drive/MyDrive/TensorBoard_Logs')
 
     set_random_seed(args.seed)  # we set the default as 2222
     # if not args.use_avai_gpus:
