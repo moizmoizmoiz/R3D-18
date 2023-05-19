@@ -6,7 +6,6 @@ import os
 from tqdm import tqdm
 
 
-
 class VideoDataset(torch.utils.data.Dataset):
     def __init__(self, root_dir, frames_per_clip=16, transform=None):
         self.root_dir = root_dir
