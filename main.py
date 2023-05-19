@@ -31,7 +31,8 @@ args = parser.parse_args()
 
 def main():
     global args
-    writer = SummaryWriter(log_dir='/content/drive/MyDrive/TensorBoard_Logs')
+    logdir = "/content/drive/MyDrive/TensorBoard_Logs" + datetime.now().strftime("%Y%m%d-%H%M%S")
+    writer = SummaryWriter(log_dir=logdir)
 
     set_random_seed(args.seed)  # we set the default as 2222
     # if not args.use_avai_gpus:
@@ -102,7 +103,6 @@ def main():
 
     elapsed = round(time.time() - time_start)
     elapsed = str(datetime.timedelta(seconds=elapsed))
-    writer.add_scalar('Elapsed', elapsed)
     print(f"Elapsed {elapsed}")
 
     writer.close()
