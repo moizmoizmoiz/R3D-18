@@ -9,7 +9,6 @@ import numpy as np
 from tqdm import tqdm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-from src.dataloader import classlabels
 
 
 def test(model, dataloader, device):
