@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 ##define test function
 import numpy as np
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 

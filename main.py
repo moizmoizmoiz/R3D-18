@@ -3,7 +3,7 @@ import os
 import os.path as osp
 import sys
 import time
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 from torchvision.models.video import R3D_18_Weights
 
 import src
@@ -87,18 +87,24 @@ def main():
     learning_rate = args.lr
     optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
     print("==========")
-
+    time_start = time.time()
     for epoch in tqdm(range(args.epochs)):
         loss_avg = train(model,
                          train_loader,
                          optimizer,
                          device)
-        print("loss: {:.4f} for epoch: {}/{}".format(loss_avg, epoch, args.epochs))
+        print("loss: {:.4f} for epoch: {}/{}".format(loss_avg, epoch+1, args.epochs))
         writer.add_scalar('Loss/Train', loss_avg, epoch)
 
     test(model,
          test_loader,
          device)
+
+    elapsed = round(time.time() - time_start)
+    elapsed = str(datetime.timedelta(seconds=elapsed))
+    writer.add_scalar('Time Taken for Training', elapsed)
+    print(f"Elapsed {elapsed}")
+
 
     writer.close()
 
