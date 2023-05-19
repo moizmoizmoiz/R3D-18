@@ -5,7 +5,6 @@ from PIL import Image
 import os
 from tqdm import tqdm
 
-global classlabels
 
 
 class VideoDataset(torch.utils.data.Dataset):
@@ -16,7 +15,6 @@ class VideoDataset(torch.utils.data.Dataset):
 
         self.classes = os.listdir(root_dir)
         self.class_to_idx = {c: i for i, c in enumerate(self.classes)}
-        classlabels = self.classes
         # following loops through each class directory and video file in the dataset, and extract a clip of frames from each video.
         # For each frame in the clip, it loads the image from file using the Image class from the Python Imaging Library (PIL),
         # applies the optional transform, and adds it to the clip. If the clip has at least frames_per_clip frames,

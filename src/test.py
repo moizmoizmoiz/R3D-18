@@ -1,4 +1,9 @@
+import os
+
 import tqdm
+
+import args
+from args import argument_parser
 from src.avgmeter import AverageMeter
 import torch
 import torch.nn.functional as F
@@ -9,7 +14,8 @@ import numpy as np
 from tqdm import tqdm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-from src.dataloader import classlabels
+parser = argument_parser()
+args = parser.parse_args()
 
 
 def test(model, dataloader, device):
@@ -67,7 +73,8 @@ def test(model, dataloader, device):
         len(dataloader.dataset), top5_acc_meter.avg))
     print('Confusion Matrix:')
     cm = (confusion_matrix(y_true, y_pred))
-
+    classes = os.listdir(args.root)
+    classlabels = {c: i for i, c in enumerate(classes)}
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classlabels)
     disp.plot()
     plt.show()
