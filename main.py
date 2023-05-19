@@ -93,7 +93,7 @@ def main():
                          train_loader,
                          optimizer,
                          device)
-        print("loss: {:.4f} for epoch: {}/{}".format(loss_avg), epoch, args.epochs)
+        print("loss: {:.4f} for epoch: {}/{}".format(loss_avg, epoch, args.epochs))
         writer.add_scalar('Loss/Train', loss_avg, epoch)
 
     test(model,
