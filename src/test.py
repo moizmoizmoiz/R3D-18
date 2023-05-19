@@ -2,12 +2,15 @@ import tqdm
 from src.avgmeter import AverageMeter
 import torch
 import torch.nn.functional as F
-
+import matplotlib.pyplot as plt
 
 ##define test function
 import numpy as np
 from tqdm import tqdm
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+from src.dataloader import classlabels
+
 
 def test(model, dataloader, device):
     # meters
@@ -45,7 +48,7 @@ def test(model, dataloader, device):
         acc_this_top1 = correct_this_top1 / label.shape[0] * 100.0
         # update the top-1 accuracy meter 
         top1_acc_meter.update(acc_this_top1, label.shape[0])
-        
+
         # compute top-5 accuracy
         _, pred_top5 = torch.topk(output, k=5, dim=1)
         pred_top5 = pred_top5.t()
@@ -53,13 +56,18 @@ def test(model, dataloader, device):
         correct_top5 += correct_this_top5
         acc_this_top5 = correct_this_top5 / label.shape[0] * 100.0
         top5_acc_meter.update(acc_this_top5, label.shape[0])
-        
+
         y_pred.extend(pred.cpu().numpy())
 
         # update the loss meter 
         loss_meter.update(loss_this.item(), label.shape[0])
 
     print('Test: Average loss: {:.4f}, Top-1 Accuracy: {}/{} ({:.2f}%), Top-5 Accuracy: {}/{} ({:.2f}%)\n'.format(
-        loss_meter.avg, correct_top1, len(dataloader.dataset), top1_acc_meter.avg, correct_top5, len(dataloader.dataset), top5_acc_meter.avg))
+        loss_meter.avg, correct_top1, len(dataloader.dataset), top1_acc_meter.avg, correct_top5,
+        len(dataloader.dataset), top5_acc_meter.avg))
     print('Confusion Matrix:')
-    print(confusion_matrix(y_true, y_pred))
+    cm = (confusion_matrix(y_true, y_pred))
+
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=classlabels)
+    disp.plot()
+    plt.show()

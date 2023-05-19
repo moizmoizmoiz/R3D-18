@@ -1,5 +1,4 @@
 # Copyright (c) EEEM071, University of Surrey
-#TODO: add more args and make a script
 import argparse
 
 
@@ -51,7 +50,7 @@ def argument_parser():
     parser.add_argument(
         "--mprint",
         action="store_true",
-        default= False,
+        default=False,
         help="Print Model Summary",
     )
 
