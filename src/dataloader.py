@@ -47,4 +47,5 @@ class VideoDataset(torch.utils.data.Dataset):
         label = self.class_to_idx[class_name]
         return clip, label
         #returns the idx-th clip in the dataset, along with its label.
-        #The clip is returned as a tensor with dimensions (frames_per_clip, C, H, W), where C, H, and W are the number of channels, height, and width of each frame, respectively
+        #The clip is returned as a tensor with dimensions (frames_per_clip, C, H, W),
+        # where C, H, and W are the number of channels, height, and width of each frame, respectively
