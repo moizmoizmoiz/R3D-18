@@ -69,6 +69,7 @@ def main():
     model.fc = torch.nn.Linear(512, 25)
     nn.init.normal_(model.fc.weight, mean=0.0, std=0.002)
     print("Model size: {:.3f} M".format(count_num_param(model)))
+    writer.add_graph(model)
     # writer.add_graph(model)
     if args.mprint: print(model)
     print("==========")
