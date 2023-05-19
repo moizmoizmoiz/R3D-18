@@ -1,4 +1,4 @@
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 import torch.nn.functional as F
 from src.avgmeter import AverageMeter
 import torch
@@ -21,7 +21,7 @@ def train(model, dataloader, optimizer, device):
         # compute the forward pass
         output = model(frame)
         # compute the loss function
-        loss_this = F.cross_entropy(output, label)  # variable
+        loss_this = F.cross_entropy(output, label)  # TODO variable
         # initialize the optimizer
         optimizer.zero_grad()
         # compute the backward pass

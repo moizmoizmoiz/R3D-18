@@ -69,4 +69,5 @@ def test(model, dataloader, device):
 
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
     disp.plot()
+    plt.tight_layout()
     plt.show()

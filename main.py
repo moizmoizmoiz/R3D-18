@@ -93,7 +93,7 @@ def main():
                          train_loader,
                          optimizer,
                          device)
-        print("loss: {:.4f} for epoch: {}/{}".format(loss_avg, epoch+1, args.epochs))
+        print("loss: {:.4f} for epoch: {}/{}".format(loss_avg, epoch + 1, args.epochs))
         writer.add_scalar('Loss/Train', loss_avg, epoch)
 
     test(model,
@@ -102,9 +102,8 @@ def main():
 
     elapsed = round(time.time() - time_start)
     elapsed = str(datetime.timedelta(seconds=elapsed))
-    writer.add_scalar('Time Taken for Training', elapsed)
+    writer.add_scalar('Elapsed', elapsed)
     print(f"Elapsed {elapsed}")
-
 
     writer.close()
 
