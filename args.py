@@ -180,7 +180,7 @@ def argument_parser():
     # parser.add_argument("--print-freq", type=int, default=10, help="print frequency")
     parser.add_argument("--seed", type=int, default=42, help="manual seed")
     parser.add_argument(
-        "--save-dir", type=str, default="log", help="path to save log and model weights"
+        "--save-dir", type=str, default="/content/drive/MyDrive/TensorBoard_Logs/logstxt/", help="path to save log and model weights"
     )
     # parser.add_argument(
     #     "--gpu-devices",
