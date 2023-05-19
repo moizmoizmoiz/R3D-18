@@ -3,7 +3,7 @@ import torchvision.transforms as transforms
 import torch
 from PIL import Image
 import os
-from tqdm import tqdm
+from tqdm import tqdm_notebook as tqdm
 
 class VideoDataset(torch.utils.data.Dataset):
     def __init__(self, root_dir, frames_per_clip=16, transform=None):
