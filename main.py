@@ -65,22 +65,27 @@ def main():
     test_set = torch.utils.data.Subset(dataset, test_indexes)
     print("Defining Model")
     model = torchvision.models.video.r3d_18(weights=R3D_18_Weights.DEFAULT)
-    model.fc = torch.nn.Linear(512, 25)
-    nn.init.normal_(model.fc.weight, mean=0.0, std=0.002)
+    
+    del model.fc
+
+    model.fc = nn.Sequential(
+    nn.Linear(512, 25),
+    nn.Softmax(dim=1)
+    )
+    nn.init.normal_(model.fc[0].weight, mean=0.0, std=0.002)
+
     #optimizer to give different lr for different parameter group.
     lr = 0.001  # Learning rate for other layers
     lr_fc = 0.01  # Learning rate for the final layer
 
     # Separate the parameters of the final layer and other layers
 
-    final_layer_names = ['fc.weight', 'fc.bias']
-    other_params = [param for name, param in model.named_parameters() if name not in final_layer_names]
+    final_layer_params = list(model.fc.parameters())
+    other_params = [param for name, param in model.named_parameters() if not name.startswith('fc')]
 
     # Create separate parameter groups for the final layer and other layers
-    optimizer = optim.Adam([
-        {'params': other_params, 'lr': lr},
-        {'params': model.fc.parameters(), 'lr': lr_fc}
-    ])
+    optimizer = optim.Adam([ {'params': other_params, 'lr': lr}, {'params': final_layer_params, 'lr': lr_fc}])
+
     print("Model size: {:.3f} M".format(count_num_param(model)))
     # writer.add_graph(model, use_strict_trace=False)
     if args.mprint: print(model)
