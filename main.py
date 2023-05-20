@@ -67,6 +67,20 @@ def main():
     model = torchvision.models.video.r3d_18(weights=R3D_18_Weights.DEFAULT)
     model.fc = torch.nn.Linear(512, 25)
     nn.init.normal_(model.fc.weight, mean=0.0, std=0.002)
+    #optimizer to give different lr for different parameter group.
+    lr = 0.001  # Learning rate for other layers
+    lr_fc = 0.01  # Learning rate for the final layer
+
+    # Separate the parameters of the final layer and other layers
+
+    final_layer_names = ['fc.weight', 'fc.bias']
+    other_params = [param for name, param in model.named_parameters() if name not in final_layer_names]
+
+    # Create separate parameter groups for the final layer and other layers
+    optimizer = optim.Adam([
+        {'params': other_params, 'lr': lr},
+        {'params': model.fc.parameters(), 'lr': lr_fc}
+    ])
     print("Model size: {:.3f} M".format(count_num_param(model)))
     # writer.add_graph(model, use_strict_trace=False)
     if args.mprint: print(model)
