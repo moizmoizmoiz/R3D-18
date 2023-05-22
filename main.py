@@ -31,7 +31,7 @@ args = parser.parse_args()
 
 def main():
     global args
-    writer = SummaryWriter(log_dir="/content/drive/MyDrive/TensorBoard_Logs")
+    writer = SummaryWriter(log_dir="/content/drive/MyDrive/TensorBoard_Logs", comment=args.name)
 
     set_random_seed(args.seed)  # we set the default as 2222
     # if not args.use_avai_gpus:
@@ -39,7 +39,7 @@ def main():
     # use_gpu = torch.cuda.is_available()
     # if args.use_cpu:
     #     use_gpu = False
-    log_name = "logs.txt"
+    log_name = "logs.txt"+args.name
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print(f"==========\nArgs:{args}\n==========")
 
