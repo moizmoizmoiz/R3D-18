@@ -3,7 +3,7 @@ from src.avgmeter import AverageMeter
 import torch
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
-
+import main
 ##define test function
 import numpy as np
 from tqdm.notebook import tqdm
@@ -86,6 +86,7 @@ def test(model, dataloader, device):
     cm = (confusion_matrix(y_true, y_pred))
 
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot()
+    fig, ax = plt.subplots(figsize=(8, 6))
+    disp.plot(ax=ax)
     plt.tight_layout()
-    plt.show()
+    main.writer.add_figure('Confusion Matrix', fig)

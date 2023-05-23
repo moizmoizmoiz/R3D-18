@@ -27,15 +27,14 @@ from src.test import test
 # global variables
 parser = argument_parser()
 args = parser.parse_args()
+current_datetime = datetime.datetime.now()
+formatted_datetime = current_datetime.strftime("%Y-%m-%d--%H%M%S")
+log_dir = "/content/drive/MyDrive/TensorBoard_Logs/" + formatted_datetime + "_" + args.name
+writer = SummaryWriter(log_dir=log_dir)
 
 
 def main():
     global args
-    current_datetime = datetime.datetime.now()
-    formatted_datetime = current_datetime.strftime("%Y-%m-%d--%H%M%S")
-    log_dir = "/content/drive/MyDrive/TensorBoard_Logs/" + formatted_datetime +"_" +args.name
-    writer = SummaryWriter(log_dir=log_dir)
-
     set_random_seed(args.seed)  # we set the default as 2222
     # if not args.use_avai_gpus:
     #     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_devices
