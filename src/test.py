@@ -4,27 +4,39 @@ import torch
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 ##define test function
+from sklearn.metrics import precision_score, recall_score
 import numpy as np
 from tqdm.notebook import tqdm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from src.loggers import Logger
-from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import f1_score
+
 logger = Logger()
 writer = logger.create_summary_writer()
-def f1_score(y_true, y_pred):
-  
+def calc_f1_score(y_true, y_pred):
+    f1 = f1_score(y_true, y_pred)
+    labels = ['F1 Score']
+    values = [f1]
+    fig, ax = plt.subplots()
+    ax.bar(labels, values)
+    ax.set_ylim(0, 1.0)
+    ax.set_ylabel('F1 Score')
+    ax.set_title('F1 Score Comparison')
+    plt.tight_layout()
+    writer.add_figure('Confusion Matrix', fig)
 
-  # Calculate the F1 score for each class.
-  f1_scores = []
-  for i in range(len(np.unique(y_true))):
-    precision = np.true_divide(np.sum(y_true[y_true == i] & y_pred[y_true == i]), np.sum(y_pred[y_true == i]))
-    recall = np.true_divide(np.sum(y_true[y_true == i] & y_pred[y_true == i]), np.sum(y_true[y_true == i]))
-    f1_scores.append(2 * (precision * recall) / (precision + recall))
 
-  # Calculate the average F1 score.
-  f1 = np.mean(f1_scores)
 
-  return f1
+
+    # # Calculate the F1 score for each class.
+  # f1_scores = []
+  # for i in range(len(np.unique(y_true))):
+  #   precision = np.true_divide(np.sum(y_true[y_true == i] & y_pred[y_true == i]), np.sum(y_pred[y_true == i]))
+  #   recall = np.true_divide(np.sum(y_true[y_true == i] & y_pred[y_true == i]), np.sum(y_true[y_true == i]))
+  #   f1_scores.append(2 * (precision * recall) / (precision + recall))
+  #
+  # # Calculate the average F1 score.
+  # f1 = np.mean(f1_scores)
 
 
 
@@ -77,8 +89,8 @@ def test(model, dataloader, device):
 
         # update the loss meter 
         loss_meter.update(loss_this.item(), label.shape[0])
-    f1 = f1_score(y_true, y_pred)
-    print('F1 score: {}'.format(f1))
+    f1_score(y_true, y_pred)
+    print('F1 score Generated')
     print('Test: Average loss: {:.4f}, Top-1 Accuracy: {}/{} ({:.2f}%), Top-5 Accuracy: {}/{} ({:.2f}%)\n'.format(
         loss_meter.avg, correct_top1, len(dataloader.dataset), top1_acc_meter.avg, correct_top5,
         len(dataloader.dataset), top5_acc_meter.avg))
