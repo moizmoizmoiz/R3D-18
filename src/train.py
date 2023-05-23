@@ -7,6 +7,7 @@ import torch
 ##define train function
 def train(model, dataloader, optimizer, device):
     # meter
+    global avg_loss
     loss_meter = AverageMeter()
     # switch to train mode
     model.train()
