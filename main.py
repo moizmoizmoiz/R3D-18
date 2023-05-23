@@ -33,9 +33,6 @@ def main():
     global args
     current_datetime = datetime.datetime.now()
     formatted_datetime = current_datetime.strftime("%Y%m%d-%H%M%S")
-
-
-
     log_dir = args.name + "/content/drive/MyDrive/TensorBoard_Logs" + formatted_datetime
     writer = SummaryWriter(log_dir=log_dir, comment=args.name)
 
@@ -100,7 +97,7 @@ def main():
     print("==========")
     print("Optimizer Defined...")
     # Create separate parameter groups for the final layer and other layers
-    optimizer = optim.Adam([ {'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}])
+    optimizer = optim.Adam([{'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}], weight_decay=args.decay)
     #optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
     print("==========")
     time_start = time.time()
@@ -119,7 +116,6 @@ def main():
     elapsed = round(time.time() - time_start)
     elapsed = str(datetime.timedelta(seconds=elapsed))
     print(f"Elapsed {elapsed}")
-    writer.add_text("Elapsed", {elapsed})
 
     writer.close()
 
