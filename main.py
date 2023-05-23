@@ -34,7 +34,7 @@ def main():
     current_datetime = datetime.datetime.now()
     formatted_datetime = current_datetime.strftime("%Y%m%d-%H%M%S")
     log_dir = args.name + "/content/drive/MyDrive/TensorBoard_Logs" + formatted_datetime
-    writer = SummaryWriter(log_dir=log_dir, comment=args.name)
+    writer = SummaryWriter(log_dir=log_dir)
 
     set_random_seed(args.seed)  # we set the default as 2222
     # if not args.use_avai_gpus:
@@ -42,7 +42,7 @@ def main():
     # use_gpu = torch.cuda.is_available()
     # if args.use_cpu:
     #     use_gpu = False
-    log_name = "log-"+args.name+formatted_datetime
+    log_name = formatted_datetime+"-"+args.name+".txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print(f"==========\nArgs:{args}\n==========")
 
@@ -73,7 +73,7 @@ def main():
 
     model.fc = nn.Sequential(
     nn.Linear(512, 25),
-    nn.Softmax(dim=1)
+    nn.LogSoftmax(dim=1)
     )
     nn.init.normal_(model.fc[0].weight, mean=0.0, std=0.002)
 
