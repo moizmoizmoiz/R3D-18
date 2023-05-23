@@ -24,7 +24,7 @@ from src.test import test
 parser = argument_parser()
 args = parser.parse_args()
 logger = Logger()
-writer = logger.get_summary_writer()
+writer = logger.create_summary_writer()
 
 def main():
     global args
