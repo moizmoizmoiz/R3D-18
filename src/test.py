@@ -24,6 +24,7 @@ def calc_f1_score(y_true, y_pred):
     ax.set_title('F1 Score Comparison')
     plt.tight_layout()
     writer.add_figure('Confusion Matrix', fig)
+    return fig
 
 
 
@@ -89,7 +90,8 @@ def test(model, dataloader, device):
 
         # update the loss meter 
         loss_meter.update(loss_this.item(), label.shape[0])
-    f1_score(y_true, y_pred, average='macro')
+    figf1 = f1_score(y_true, y_pred, average='macro')
+    writer.add_figure('Confusion Matrix', figf1)
     print('F1 score Generated')
     print('Test: Average loss: {:.4f}, Top-1 Accuracy: {}/{} ({:.2f}%), Top-5 Accuracy: {}/{} ({:.2f}%)\n'.format(
         loss_meter.avg, correct_top1, len(dataloader.dataset), top1_acc_meter.avg, correct_top5,
