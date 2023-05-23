@@ -9,6 +9,23 @@ import numpy as np
 from tqdm.notebook import tqdm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
+from sklearn.metrics import precision_score, recall_score
+
+def f1_score(y_true, y_pred):
+  
+
+  # Calculate the F1 score for each class.
+  f1_scores = []
+  for i in range(len(np.unique(y_true))):
+    precision = np.true_divide(np.sum(y_true[y_true == i] & y_pred[y_true == i]), np.sum(y_pred[y_true == i]))
+    recall = np.true_divide(np.sum(y_true[y_true == i] & y_pred[y_true == i]), np.sum(y_true[y_true == i]))
+    f1_scores.append(2 * (precision * recall) / (precision + recall))
+
+  # Calculate the average F1 score.
+  f1 = np.mean(f1_scores)
+
+  return f1
+
 
 
 def test(model, dataloader, device):
@@ -60,7 +77,8 @@ def test(model, dataloader, device):
 
         # update the loss meter 
         loss_meter.update(loss_this.item(), label.shape[0])
-
+    f1 = f1_score(y_true, y_pred)
+    print('F1 score: {}'.format(f1))
     print('Test: Average loss: {:.4f}, Top-1 Accuracy: {}/{} ({:.2f}%), Top-5 Accuracy: {}/{} ({:.2f}%)\n'.format(
         loss_meter.avg, correct_top1, len(dataloader.dataset), top1_acc_meter.avg, correct_top5,
         len(dataloader.dataset), top5_acc_meter.avg))
