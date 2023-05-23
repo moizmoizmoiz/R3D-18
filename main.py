@@ -1,12 +1,9 @@
 import datetime
-import os
 import os.path as osp
 import sys
 import time
 from tqdm.notebook import tqdm
 from torchvision.models.video import R3D_18_Weights
-
-import src
 from torch import optim
 from src.tools import count_num_param
 from sklearn.model_selection import train_test_split
@@ -17,7 +14,6 @@ import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 import torch.nn as nn
 from args import argument_parser
-
 from src.dataloader import VideoDataset
 from src.loggers import Logger
 from src.set_seed import set_random_seed
@@ -27,7 +23,8 @@ from src.test import test
 # global variables
 parser = argument_parser()
 args = parser.parse_args()
-
+logger = Logger()
+writer = logger.get_summary_writer()
 
 def main():
     global args
@@ -110,7 +107,7 @@ def main():
                          optimizer,
                          device)
         print("loss: {:.4f} for epoch: {}/{}".format(loss_avg, epoch + 1, args.epochs))
-        Logger.writer.add_scalar('Loss/Train', loss_avg, epoch)
+        writer.add_scalar('Loss/Train', loss_avg, epoch)
 
     test(model,
          test_loader,
@@ -120,7 +117,7 @@ def main():
     elapsed = str(datetime.timedelta(seconds=elapsed))
     print(f"Elapsed {elapsed}")
 
-    Logger.writer.close()
+    writer.close()
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 # Copyright (c) EEEM071, University of Surrey
-import src
 
 
 class AverageMeter:

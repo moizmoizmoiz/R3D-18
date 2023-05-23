@@ -14,19 +14,18 @@ class Logger:
     """
 
     def __init__(self, fpath=None):
-        global writer
         current_datetime = datetime.datetime.now()
         formatted_datetime = current_datetime.strftime("%Y-%m-%d--%H%M%S")
         log_dir = "/content/drive/MyDrive/TensorBoard_Logs/" + formatted_datetime + "_" + args.name
-        writer = SummaryWriter(log_dir=log_dir)
-
         self.console = sys.stdout
         self.file = None
+        self.writer = SummaryWriter(log_dir=log_dir)
         if fpath is not None:
             mkdir_if_missing(osp.dirname(fpath))
             self.file = open(fpath, "w")
 
-
+    def create_summary_writer(self):
+        return self.writer
     def __del__(self):
         self.close()
 
@@ -51,3 +50,4 @@ class Logger:
         self.console.close()
         if self.file is not None:
             self.file.close()
+

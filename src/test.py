@@ -9,7 +9,8 @@ from tqdm.notebook import tqdm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from src.loggers import Logger
 from sklearn.metrics import precision_score, recall_score
-
+logger = Logger()
+writer = logger.get_summary_writer()
 def f1_score(y_true, y_pred):
   
 
@@ -88,4 +89,4 @@ def test(model, dataloader, device):
     fig, ax = plt.subplots(figsize=(8, 6))
     disp.plot(ax=ax)
     plt.tight_layout()
-    Logger.writer.add_figure('Confusion Matrix', fig)
+    writer.add_figure('Confusion Matrix', fig)
