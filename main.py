@@ -72,9 +72,10 @@ def main():
     del model.fc
 
     model.fc = nn.Sequential(
-    nn.Linear(512, 25),
-    nn.LogSoftmax(dim=1)
+    nn.Linear(512, 25)
+    
     )
+    nn.LogSoftmax(dim=1)
     nn.init.normal_(model.fc[0].weight, mean=0.0, std=0.002)
 
     final_layer_params = list(model.fc.parameters())
