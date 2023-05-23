@@ -94,7 +94,10 @@ def test(model, dataloader, device):
     print('Test: Average loss: {:.4f}, Top-1 Accuracy: {}/{} ({:.2f}%), Top-5 Accuracy: {}/{} ({:.2f}%)\n'.format(
         loss_meter.avg, correct_top1, len(dataloader.dataset), top1_acc_meter.avg, correct_top5,
         len(dataloader.dataset), top5_acc_meter.avg))
-    print('Confusion Matrix:')
+    writer.add_text('Avg Loss', loss_meter.avg)
+    writer.add_text('Top1%', top1_acc_meter.avg)
+    writer.add_text('Top5%', loss_meter.avg)
+    print('Confusion Matrix Generated')
     cm = (confusion_matrix(y_true, y_pred))
 
     disp = ConfusionMatrixDisplay(confusion_matrix=cm)

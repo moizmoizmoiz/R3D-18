@@ -112,6 +112,12 @@ def main():
     test(model,
          test_loader,
          device)
+    writer.add_text('LR', args.lr)
+    writer.add_text('Final Layer LR', args.lr_fc)
+    writer.add_text('Weight Decay', args.weight_decay)
+    writer.add_text('Epochs', args.epochs)
+    writer.add_text('Batch Size', args.batch)
+    writer.add_text('Split', args.split)
 
     elapsed = round(time.time() - time_start)
     elapsed = str(datetime.timedelta(seconds=elapsed))
