@@ -32,7 +32,7 @@ args = parser.parse_args()
 def main():
     global args
     current_datetime = datetime.datetime.now()
-    formatted_datetime = current_datetime.strftime("%Y%m%d-%H%M%S")
+    formatted_datetime = current_datetime.strftime("%Y-%m-%d--%H%M%S")
     log_dir = args.name + "/content/drive/MyDrive/TensorBoard_Logs" + formatted_datetime
     writer = SummaryWriter(log_dir=log_dir)
 
@@ -42,7 +42,7 @@ def main():
     # use_gpu = torch.cuda.is_available()
     # if args.use_cpu:
     #     use_gpu = False
-    log_name = formatted_datetime+"-"+args.name+".txt"
+    log_name = formatted_datetime+"_"+args.name+".txt"
     sys.stdout = Logger(osp.join(args.save_dir, log_name))
     print(f"==========\nArgs:{args}\n==========")
 
