@@ -2,8 +2,11 @@ from .tools import mkdir_if_missing
 import sys
 import os.path as osp
 import os
-
-
+from torch.utils.tensorboard import SummaryWriter
+import datetime
+from args import argument_parser
+parser = argument_parser()
+args = parser.parse_args()
 class Logger:
     """
     Write console output to external text file.
@@ -11,11 +14,18 @@ class Logger:
     """
 
     def __init__(self, fpath=None):
+        global writer
+        current_datetime = datetime.datetime.now()
+        formatted_datetime = current_datetime.strftime("%Y-%m-%d--%H%M%S")
+        log_dir = "/content/drive/MyDrive/TensorBoard_Logs/" + formatted_datetime + "_" + args.name
+        writer = SummaryWriter(log_dir=log_dir)
+
         self.console = sys.stdout
         self.file = None
         if fpath is not None:
             mkdir_if_missing(osp.dirname(fpath))
             self.file = open(fpath, "w")
+
 
     def __del__(self):
         self.close()
