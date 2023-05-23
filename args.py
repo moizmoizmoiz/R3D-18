@@ -76,6 +76,9 @@ def argument_parser():
     parser.add_argument(
         "--lr", default=0.0003, type=float, help="initial learning rate"
     )
+    parser.add_argument(
+        "--lr-fc", default=0.03, type=float, help="final layer (FC layer) learning rate"
+    )
 
     parser.add_argument(
         "--decay", default=1e-08, type=float, help="weight decay"

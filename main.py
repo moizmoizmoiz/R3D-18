@@ -80,24 +80,14 @@ def main():
     )
     nn.init.normal_(model.fc[0].weight, mean=0.0, std=0.002)
 
-    #optimizer to give different lr for different parameter group.
-    lr = 0.001  # Learning rate for other layers
-    lr_fc = 0.01  # Learning rate for the final layer
-
-    # Separate the parameters of the final layer and other layers
-
     final_layer_params = list(model.fc.parameters())
     other_params = [param for name, param in model.named_parameters() if not name.startswith('fc')]
 
-    # Create separate parameter groups for the final layer and other layers
-    optimizer = optim.Adam([ {'params': other_params, 'lr': lr}, {'params': final_layer_params, 'lr': lr_fc}])
 
     print("Model size: {:.3f} M".format(count_num_param(model)))
     # writer.add_graph(model, use_strict_trace=False)
     if args.mprint: print(model)
     print("==========")
-    # batch_size = 64  # variable
-    # num_workers = 4  # variable
     print("Loading Dataloaders...")
     loader_args = dict(batch_size=args.batch, num_workers=args.workers, pin_memory=True)
     train_loader = torch.utils.data.DataLoader(train_set, shuffle=True, **loader_args)
@@ -109,8 +99,9 @@ def main():
     model = model.to(device)
     print("==========")
     print("Optimizer Defined...")
-    learning_rate = args.lr
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
+    # Create separate parameter groups for the final layer and other layers
+    optimizer = optim.Adam([ {'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}])
+    #optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
     print("==========")
     time_start = time.time()
     for epoch in tqdm(range(args.epochs)):
