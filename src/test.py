@@ -10,7 +10,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from src.loggers import Logger
 from sklearn.metrics import precision_score, recall_score
 logger = Logger()
-writer = logger.get_summary_writer()
+writer = logger.create_summary_writer()
 def f1_score(y_true, y_pred):
   
 
