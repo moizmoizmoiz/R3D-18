@@ -1,0 +1,24 @@
+==========
+Args:Namespace(root='/content/HMDB_simp', name='f1test', workers=4, split=0.2, mprint=True, batch=64, lr=0.01, lr_fc=0.03, decay=0.0, epochs=20, seed=42, save_dir='/content/drive/MyDrive/TensorBoard_Logs/logstxt/')
+==========
+Defined Transformations
+==========
+Transforming Data...
+Total Classes = 25
+  0%|          | 0/25 [00:00<?, ?it/s]
+working on: brush_hair
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: handstand
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: situp
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: chew
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: climb
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: flic_flac
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: wave
+  0%|          | 0/50 [00:00<?, ?it/s]
+working on: ride_bike
+  0%|          | 0/50 [00:00<?, ?it/s]
