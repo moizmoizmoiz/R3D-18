@@ -97,8 +97,8 @@ def main():
     print("==========")
     print("Optimizer Defined...")
     # Create separate parameter groups for the final layer and other layers
-    # optimizer = optim.Adam([{'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}], weight_decay=args.decay)
-    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.decay)
+    optimizer = optim.Adam([{'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}], weight_decay=args.decay)
+    # optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.decay)
     print("==========")
     time_start = time.time()
     for epoch in tqdm(range(args.epochs)):
