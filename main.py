@@ -65,17 +65,17 @@ def main():
     test_set = torch.utils.data.Subset(dataset, test_indexes)
     print("Defining Model")
     model = torchvision.models.video.r3d_18(weights=R3D_18_Weights.DEFAULT)
-    
-    del model.fc
-
-    model.fc = nn.Sequential(
-    nn.Linear(512, 25)
-    )
-    nn.init.normal_(model.fc[0].weight, mean=0.0, std=0.002)
-
-    model.classi = nn.Sequential(
-    nn.LogSoftmax(dim=1)
-    )
+    model.fc = torch.nn.Linear(512, 25)
+    # del model.fc
+    #
+    # model.fc = nn.Sequential(
+    # nn.Linear(512, 25)
+    # )
+    # nn.init.normal_(model.fc[0].weight, mean=0.0, std=0.002)
+    #
+    # model.classi = nn.Sequential(
+    # nn.LogSoftmax(dim=1)
+    # )
 
     final_layer_params = list(model.fc.parameters())
     other_params = [param for name, param in model.named_parameters() if not name.startswith('fc')]
@@ -97,8 +97,8 @@ def main():
     print("==========")
     print("Optimizer Defined...")
     # Create separate parameter groups for the final layer and other layers
-    optimizer = optim.Adam([{'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}], weight_decay=args.decay)
-    #optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=args.decay)
+    # optimizer = optim.Adam([{'params': other_params, 'lr': args.lr}, {'params': final_layer_params, 'lr': args.lr_fc}], weight_decay=args.decay)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.decay)
     print("==========")
     time_start = time.time()
     for epoch in tqdm(range(args.epochs)):
